@@ -2,3 +2,4 @@ truffle.js
 .idea
 build
 node_modules
+app/public/js/app.js
