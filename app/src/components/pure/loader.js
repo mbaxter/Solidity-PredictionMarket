@@ -1,6 +1,6 @@
 "use strict";
 require('./loader.css');
-require('./fx/shadow.css');
+require('../../styles/fx/shadow.css');
 const React = require('react');
 
 const Loader = (props) => {

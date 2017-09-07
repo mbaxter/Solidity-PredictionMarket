@@ -1,6 +1,6 @@
 const Redux = require('redux');
-const eth = require('./eth');
+const accounts = require('./accounts');
 
 module.exports = Redux.combineReducers({
-	eth
+	 accounts
 });

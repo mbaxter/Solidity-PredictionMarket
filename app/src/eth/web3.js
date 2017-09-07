@@ -1,7 +1,7 @@
 const Web3 = require('web3');
 const Promise = require('bluebird');
 
-module.exports = function getWeb3(){
+function getWeb3(){
 	let web3Instance;
 	if (typeof web3 !== 'undefined') {
 		web3Instance = new Web3(web3.currentProvider);
@@ -14,3 +14,5 @@ module.exports = function getWeb3(){
 
 	return web3Instance;
 };
+
+module.exports = getWeb3();

@@ -21,11 +21,16 @@ module.exports = {
 			{
 				test:   /\.css$/,
 				loader: "style!css!postcss-loader"
+			},
+			{
+				test: '/\.json$/',
+				loader: 'json-loader'
 			}
 		]
 	},
 	plugins: [],
 	externals: {
+		"web3": "Web3",
 		"jquery": "$",
 		"react": "React",
 		"react-dom": "ReactDOM",

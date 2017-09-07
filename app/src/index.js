@@ -5,6 +5,7 @@ const ReactRouter = require('react-router');
 const Redux = require('redux');
 const ReactRedux = require('react-redux');
 const thunkMiddleware = require('redux-thunk').default;
+const loggerMiddleware = require('redux-logger');
 
 const Router = ReactRouter.Router;
 const Provider = ReactRedux.Provider;
@@ -17,7 +18,7 @@ const App = require('./components/app');
 
 const storeMiddleware = [];
 storeMiddleware.push(thunkMiddleware);
-// storeMiddleware.push(createLoggerMiddleware());
+storeMiddleware.push(loggerMiddleware());
 
 let store = Redux.createStore(
 	reducer,
