@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "app-serve": "$(npm bin)/http-server app/public -p 8080",
+    "app-serve": "$(npm bin)/http-server public -p 8080",
     "app-build": "$(npm bin)/webpack",
     "app-watch": "$(npm bin)/webpack --watch",
     "contract-compile": "$(npm bin)/truffle compile",
