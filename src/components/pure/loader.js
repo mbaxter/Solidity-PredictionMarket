@@ -3,9 +3,9 @@ require('./loader.css');
 require('../../styles/fx/shadow.css');
 const React = require('react');
 
-const Loader = (props) => {
+const Loader = ({ isEnabled }) => {
     return (
-        <div className={props.isEnabled ? "show" : "hide"}>
+        <div className={isEnabled ? "" : "d-none"}>
             <div className="spinner">
                 <div className="spinner-bars">
                     <div className="spinner-bar spinner-bar1 shadow"></div>
@@ -29,7 +29,7 @@ Loader.propTypes = {
 };
 
 Loader.defaultProps = {
-    isEnabled: false
+    isEnabled: true
 };
 
 module.exports = Loader;

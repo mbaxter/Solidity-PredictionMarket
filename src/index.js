@@ -15,6 +15,7 @@ const IndexRoute = ReactRouter.IndexRoute;
 
 const reducer = require('./reducer');
 const App = require('./components/app');
+const AccountPage = require('./components/account-page');
 
 const storeMiddleware = [];
 storeMiddleware.push(thunkMiddleware);
@@ -31,11 +32,13 @@ window.addEventListener('load', () => {
 	ReactDom.render(
 		<Provider store={store}>
 			<Router history={Router.hashHistory}>
-				<Route path = "/" component={App}>
+				<Route component={App}>
+					<IndexRedirect to="account" />
+					<Route path="account" component={AccountPage}/>
 				</Route>
 				{/* Catch-all redirect */}
 				<Route path="*" component={App}>
-					<IndexRedirect to="/app" />
+					<IndexRedirect to="/account" />
 				</Route>
 			</Router>
 		</Provider>

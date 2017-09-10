@@ -1,9 +1,10 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const ReactRedux = require('react-redux');
-const Loader = require('./pure/loader');
 const actions = require('../actions');
-const ChooseWeb3Account = require('./choose-web3-account');
+const selectors = require('../selectors');
+import AppLoader from './app-loader';
+import NavBar from './nav-bar';
 
 class App extends React.Component {
 
@@ -13,10 +14,10 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div>
-				Hello World!
-				<Loader isEnabled={true}></Loader>
-				<ChooseWeb3Account/>
+			<div className="container">
+				<NavBar location={this.props.location.pathname}/>
+				<div>{this.props.children}</div>
+				<AppLoader/>
 			</div>
 		);
 	}
@@ -26,7 +27,9 @@ App.propTypes = {
 	load: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => {
+	return {};
+};
 const mapDispatchToProps = (dispatch) => {
 	return {
 		load: () => {

@@ -5,8 +5,10 @@ const web3 = require('../eth/web3');
 module.exports = function getEthAccounts() {
 	return (dispatch, getState) => {
 		co(function*() {
+			dispatch(simple.startLoading());
 			const accounts = yield web3.eth.getAccountsPromise();
 			dispatch(simple.setAccounts(accounts));
+			dispatch(simple.finishLoading());
 		});
 	};
 };
