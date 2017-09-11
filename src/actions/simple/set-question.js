@@ -1,8 +1,8 @@
 const ActionType = require('../../constants/action-type');
 
-module.exports = function setQuestions(questions) {
+module.exports = function setQuestions(question) {
 	return {
 		type: ActionType.SET_QUESTION,
-		questions
+		question
 	};
 };

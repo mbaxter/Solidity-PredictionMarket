@@ -6,9 +6,9 @@ contract PredictionMarketQuestion is Owned {
 
 	// Custom data structures
 	struct Bet {
-	// True if outcome is expected to be positive
-	bool expectedOutcome;
-	uint amount;
+		// True if outcome is expected to be positive
+		bool expectedOutcome;
+		uint amount;
 	}
 
 	// State variables
@@ -34,9 +34,10 @@ contract PredictionMarketQuestion is Owned {
 
 	// Methods
 	function PredictionMarketQuestion(string _description)
-	public
+		public
 	{
 		description = _description;
+		bettingIsOpen = true;
 	}
 
 	function placeBet(bool _expectedOutcome)

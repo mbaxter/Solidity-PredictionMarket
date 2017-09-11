@@ -24,10 +24,9 @@ const NavBar = ({ location, isOwner }) => {
 };
 
 const mapStateToProps = (state) => {
-	const activeAccount = selectors.simple.getActiveAccount(state);
-	const owner = selectors.simple.getPredictionMarketOwner(state);
+	const isOwner = selectors.isOwner(state);
 	return {
-		isOwner: activeAccount === owner
+		isOwner
 	};
 };
 

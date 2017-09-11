@@ -1,3 +1,3 @@
 module.exports = {
-	GAS: 100000
+	GAS: 1000000
 };

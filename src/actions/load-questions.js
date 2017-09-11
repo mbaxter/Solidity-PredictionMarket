@@ -15,7 +15,8 @@ module.exports = function loadQuestions() {
 			const predictionMarket = yield PredictionMarket.deployed();
 
 			// Get questions
-			const questionCount = yield predictionMarket.questionCount.call();
+			const questionCountRes = yield predictionMarket.questionCount.call();
+			const questionCount = parseInt(questionCountRes.toString(), 10);
 			const questionThunks = [];
 			for (let i = 0; i < questionCount; i++) {
 				questionThunks.push(function*() {
@@ -24,7 +25,7 @@ module.exports = function loadQuestions() {
 					dispatch(questionAction);
 				});
 			}
-			coParallel(questionThunks, 5);
+			yield* coParallel(questionThunks, 5);
 
 		}).catch((err) => {
 			console.error(err);
