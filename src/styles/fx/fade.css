@@ -1,4 +1,11 @@
-.fade-out {
+.show {
+    opacity: 1;
+}
+
+.hide {
     opacity: 0;
+}
+
+.fade {
     transition: opacity 1s linear;
 }
