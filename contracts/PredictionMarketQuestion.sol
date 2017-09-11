@@ -21,7 +21,6 @@ contract PredictionMarketQuestion is Owned {
 	bool public actualOutcome;
 	// Leftover value when winnings do not divide evenly
 	uint public remainder;
-	address public trustedAuthority;
 
 	// Modifiers
 	modifier assertBettingIsOpen {
@@ -32,21 +31,12 @@ contract PredictionMarketQuestion is Owned {
 		require(!bettingIsOpen);
 		_;
 	}
-	modifier assertFromTrustedAuthority {
-		require(msg.sender == trustedAuthority);
-		_;
-	}
 
 	// Methods
-	function PredictionMarketQuestion(string _description, address _trustedAuthority)
+	function PredictionMarketQuestion(string _description)
 	public
 	{
-		require(_trustedAuthority != 0x0);
-		require(_trustedAuthority != address(this));
-//		require(_description != '');
-
 		description = _description;
-		trustedAuthority = _trustedAuthority;
 	}
 
 	function placeBet(bool _expectedOutcome)
@@ -75,7 +65,7 @@ contract PredictionMarketQuestion is Owned {
 	function settleOutcome(bool _actualOutcome)
 		public
 		assertBettingIsOpen
-		assertFromTrustedAuthority
+		assertFromOwner
 		returns (bool success)
 	{
 		actualOutcome = _actualOutcome;

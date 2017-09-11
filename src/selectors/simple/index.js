@@ -9,16 +9,12 @@ SimpleSelectors.getActiveAccount = (state) => {
 	return get(state, 'eth.activeAccount', null);
 };
 
-SimpleSelectors.getAccountIsOwner = (state, account) => {
-	return get(state, `eth.accountAttributes[${account}].isOwner`, false);
-};
-
 SimpleSelectors.isLoading = (state) => {
 	return get(state, 'ui.loader.requests', 0) > 0;
 };
 
-SimpleSelectors.isContractOwnedBy = (state, contractAddress, userAddress) => {
-	return get(state, `eth.contracts[${contractAddress}].owner`, null) === userAddress && userAddress;
+SimpleSelectors.getPredictionMarketOwner = (state) => {
+	return get(state, `eth.contracts.predictionMarket.owner`, null);
 };
 
 module.exports = SimpleSelectors;

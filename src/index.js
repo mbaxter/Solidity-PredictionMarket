@@ -6,6 +6,7 @@ const Redux = require('redux');
 const ReactRedux = require('react-redux');
 const thunkMiddleware = require('redux-thunk').default;
 const loggerMiddleware = require('redux-logger');
+const promiseMiddleware = require('redux-promise');
 
 const Router = ReactRouter.Router;
 const Provider = ReactRedux.Provider;
@@ -16,9 +17,12 @@ const IndexRoute = ReactRouter.IndexRoute;
 const reducer = require('./reducer');
 const App = require('./components/app');
 const AccountPage = require('./components/account-page');
+const AdminPage = require('./components/admin-page');
+const selectors = require('./selectors');
 
 const storeMiddleware = [];
 storeMiddleware.push(thunkMiddleware);
+storeMiddleware.push(promiseMiddleware);
 storeMiddleware.push(loggerMiddleware());
 
 let store = Redux.createStore(
@@ -28,13 +32,21 @@ let store = Redux.createStore(
 	)
 );
 
+const requireAdmin = (nextState, replace) => {
+	const state = store.getState();
+	if (!selectors.simple.getPredictionMarketOwner(state) || !selectors.isOwner(state)) {
+		replace('/account');
+	}
+};
+
 window.addEventListener('load', () => {
 	ReactDom.render(
 		<Provider store={store}>
 			<Router history={Router.hashHistory}>
 				<Route component={App}>
-					<IndexRedirect to="account" />
+					{/*<IndexRedirect to="account" />*/}
 					<Route path="account" component={AccountPage}/>
+					<Route path="admin" component={AdminPage} onEnter={requireAdmin}/>
 				</Route>
 				{/* Catch-all redirect */}
 				<Route path="*" component={App}>

@@ -1,3 +1,4 @@
 module.exports = {
-	simple: require('./simple')
+	simple: require('./simple'),
+	isOwner: require('./is-owner')
 };

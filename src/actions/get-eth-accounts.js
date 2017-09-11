@@ -8,6 +8,9 @@ module.exports = function getEthAccounts() {
 			dispatch(simple.startLoading());
 			const accounts = yield web3.eth.getAccountsPromise();
 			dispatch(simple.setAccounts(accounts));
+		}).catch((err) => {
+			dispatch(simple.finishLoading());
+		}).then(() => {
 			dispatch(simple.finishLoading());
 		});
 	};

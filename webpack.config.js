@@ -23,7 +23,7 @@ module.exports = {
 				loader: "style!css!postcss-loader"
 			},
 			{
-				test: '/\.json$/',
+				test: /\.json$/,
 				loader: 'json-loader'
 			}
 		]

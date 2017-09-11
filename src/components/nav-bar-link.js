@@ -5,7 +5,7 @@ const NavBarLink = ({ to, location, label }) => {
 	const isActive = location === to || location.indexOf(`${to}/`) === 0;
 	return (
 		<li className={"nav-item " + (isActive ? 'active' : '')}>
-			<Link to="account" className="nav-link">{label}</Link>
+			<Link to={to} className="nav-link">{label}</Link>
 		</li>
 	);
 };
