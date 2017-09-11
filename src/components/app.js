@@ -10,6 +10,7 @@ class App extends React.Component {
 
 	componentDidMount() {
 		this.props.load();
+		this.props.watchNetwork();
 	}
 
 	render() {
@@ -34,6 +35,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		load: () => {
 			dispatch(actions.load());
+		},
+		watchNetwork: () => {
+			dispatch(actions.watchNetwork());
 		}
 	};
 };

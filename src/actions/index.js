@@ -4,5 +4,6 @@ module.exports = {
 	// Complex, asyncronous actions
 	addQuestion: require('./add-question'),
 	getEthAccounts: require('./get-eth-accounts'),
-	load: require('./load')
+	load: require('./load'),
+	watchNetwork: require('./watch-network')
 };
