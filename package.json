@@ -14,6 +14,7 @@
     "contract-deploy": "$(npm bin)/truffle migrate --network net42 --reset",
     "contract-test": "npm run testrpc > /dev/null & truffle test; npm run testrpc-kill",
     "lint": "$(npm bin)/eslint {test, test-util, app/src}",
+    "test": "npm run contract-test",
     "testrpc": "$(npm bin)/testrpc -a 10 --network-id=42",
     "testrpc-kill": "kill $(ps aux | grep '[t]estrpc' | awk '{print $2}')"
   },
