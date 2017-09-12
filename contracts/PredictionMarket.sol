@@ -7,7 +7,6 @@ contract PredictionMarket is Owned {
 
     PredictionMarketQuestion[] public questions;
 	mapping(address => bool) public trackedQuestions;
-	uint public questionCount;
 	mapping(address => bool) public trustedAuthorities;
 
 	event LogQuestionAdded(address question, string description, uint questionCount);
@@ -22,6 +21,14 @@ contract PredictionMarket is Owned {
 		_;
 	}
 
+	function questionCount()
+		public
+		constant
+		returns (uint count)
+	{
+		return questions.length;
+	}
+
 	function addQuestion(string description)
 		public
 		assertFromOwner
@@ -30,7 +37,8 @@ contract PredictionMarket is Owned {
 	    PredictionMarketQuestion question = new PredictionMarketQuestion(description);
 		questions.push(question);
 		trackedQuestions[question] = true;
-		questionCount += 1;
+		uint questionCount = questions.length;
+
 		LogQuestionAdded(address(question), description, questionCount);
 		return questionCount;
 	}

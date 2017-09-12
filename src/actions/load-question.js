@@ -8,7 +8,10 @@ module.exports = function loadQuestion(address) {
 		const description = yield questionContract.description.call();
 		const bettingIsOpen = yield questionContract.bettingIsOpen.call();
 		const outcome = yield questionContract.actualOutcome.call();
-		const question = { address, description, bettingIsOpen, outcome };
+		const yesBetTotal = parseInt(yield questionContract.yesBetTotal.call(), 10);
+		const noBetTotal = parseInt(yield questionContract.noBetTotal.call(), 10);
+		const betCount = parseInt(yield questionContract.betCount.call(), 10);
+		const question = { address, description, bettingIsOpen, outcome, yesBetTotal, noBetTotal, betCount };
 
 		return simple.setQuestion(question);
 	}).catch((err) => {

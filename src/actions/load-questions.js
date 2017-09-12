@@ -7,7 +7,6 @@ const coParallel = require('co-parallel');
 const loadQuestion = require('./load-question');
 
 module.exports = function loadQuestions() {
-	console.log('load questions');
 	return (dispatch, getState) => {
 		co(function*() {
 

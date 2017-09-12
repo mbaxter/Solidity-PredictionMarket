@@ -13,7 +13,6 @@ module.exports = function watchForNewQuestions() {
 					return;
 				}
 
-				console.log(result);
 				dispatch(loadQuestion(result.args.question));
 			});
 		}).catch((err) => {

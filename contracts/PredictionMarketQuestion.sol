@@ -7,7 +7,7 @@ contract PredictionMarketQuestion is Owned {
 	// Custom data structures
 	struct Bet {
 		// True if outcome is expected to be positive
-		bool expectedOutcome;
+		bool prediction;
 		uint amount;
 	}
 
@@ -15,12 +15,15 @@ contract PredictionMarketQuestion is Owned {
 	string public description;
 	bool public bettingIsOpen;
 	mapping(address => Bet) public bets;
-	// Map from expected outcome to total amount of money wagered on this outcome
-	uint[2] public betTotals;
+	uint public yesBetTotal;
+	uint public noBetTotal;
+	address[] betters;
 	// True if outcome is positive
 	bool public actualOutcome;
 	// Leftover value when winnings do not divide evenly
 	uint public remainder;
+
+	event LogBet(address better, bool prediction, uint wager);
 
 	// Modifiers
 	modifier assertBettingIsOpen {
@@ -40,7 +43,15 @@ contract PredictionMarketQuestion is Owned {
 		bettingIsOpen = true;
 	}
 
-	function placeBet(bool _expectedOutcome)
+	function betCount()
+		public
+		constant
+		returns (uint count)
+	{
+		return betters.length;
+	}
+
+	function placeBet(bool _prediction)
 		public
 		payable
 		assertBettingIsOpen
@@ -54,13 +65,17 @@ contract PredictionMarketQuestion is Owned {
 		// Require that user hasn't already placed a bet
 		require(bets[msg.sender].amount == 0);
 
-		bets[msg.sender].expectedOutcome = _expectedOutcome;
+		bets[msg.sender].prediction = _prediction;
 		bets[msg.sender].amount = msg.value;
-		if (_expectedOutcome) {
-			betTotals[1] += msg.value;
+		betters.push(msg.sender);
+	
+		if (_prediction) {
+			yesBetTotal += msg.value;
 		} else {
-			betTotals[0] += msg.value;
+			noBetTotal += msg.value;
 		}
+
+		LogBet(msg.sender, _prediction, msg.value);
 	}
 
 	function settleOutcome(bool _actualOutcome)
@@ -82,13 +97,13 @@ contract PredictionMarketQuestion is Owned {
 		// Require a bet was made
 		require(bets[msg.sender].amount > 0);
 		// Require bet was correct
-		require(bets[msg.sender].expectedOutcome == actualOutcome);
+		require(bets[msg.sender].prediction == actualOutcome);
 
 		// Calculate winnings
 		uint contributions = totalContributions();
 		uint numerator = bets[msg.sender].amount * contributions;
 		assert(numerator / contributions == bets[msg.sender].amount);
-		uint denominator = actualOutcome ? betTotals[1] : betTotals[0];
+		uint denominator = actualOutcome ? yesBetTotal : noBetTotal;
 		uint winnings = numerator / denominator;
 		// Move funds
 		remainder += numerator % denominator;
@@ -115,7 +130,7 @@ contract PredictionMarketQuestion is Owned {
 		constant
 		returns (uint contributions)
 	{
-		return betTotals[0] + betTotals[1];
+		return yesBetTotal + noBetTotal;
 	}
 
 	// Disable fallback

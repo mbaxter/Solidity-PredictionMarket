@@ -13,8 +13,9 @@ const NavBar = ({ location, isOwner }) => {
 			</button>
 			<div className="collapse navbar-collapse" id="navbarText">
 				<ul className="navbar-nav">
-					<NavBarLink to="/account" label="Account" location={location} />
-					{isOwner && <NavBarLink to="/admin" label="Admin" location={location} />}
+					<NavBarLink to="/account" label="Account" currentLocation={location} />
+					{isOwner && <NavBarLink to="/admin" label="Admin" currentLocation={location} />}
+					<NavBarLink to="/questions" label="Questions" currentLocation={location}/>
 				</ul>
 			</div>
 		</nav>

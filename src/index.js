@@ -18,12 +18,13 @@ const reducer = require('./reducer');
 const App = require('./components/app');
 const AccountPage = require('./components/account-page');
 const AdminPage = require('./components/admin-page');
+const QuestionsPage = require('./components/questions-page');
 const selectors = require('./selectors');
 
 const storeMiddleware = [];
 storeMiddleware.push(thunkMiddleware);
 storeMiddleware.push(promiseMiddleware);
-storeMiddleware.push(loggerMiddleware());
+// storeMiddleware.push(loggerMiddleware());
 
 let store = Redux.createStore(
 	reducer,
@@ -47,6 +48,7 @@ window.addEventListener('load', () => {
 					{/*<IndexRedirect to="account" />*/}
 					<Route path="account" component={AccountPage}/>
 					<Route path="admin" component={AdminPage} onEnter={requireAdmin}/>
+					<Route path="questions" component={QuestionsPage}/>
 				</Route>
 				{/* Catch-all redirect */}
 				<Route path="*" component={App}>
